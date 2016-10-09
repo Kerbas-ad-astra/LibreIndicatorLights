@@ -13,20 +13,11 @@ namespace IndicatorLights
     /// However, the "lit" color can be customized via part config. The default if not
     /// specified is bright green, but any arbitrary color can be configured.
     /// </summary>
-    class ModuleConverterIndicator : ModuleEmissiveController
+    class ModuleConverterIndicator : ModuleEmissiveController, IToggle
     {
-        // The default emissive colors for the "on" and "off" states.
-        private static readonly Color DEFAULT_ACTIVE_COLOR = Color.green;
-        private static readonly Color INACTIVE_COLOR = Color.black;
-
-        private Color activeColor = DEFAULT_ACTIVE_COLOR;
         private BaseConverter converter = null;
-        private ChangeMonitor<bool> converterActiveMonitor = null;
-
-        internal override string EditorGuiDescription
-        {
-            get { return "Converter Status"; }
-        }
+        private IColorSource activeSource;
+        private IColorSource inactiveSource;
 
         /// <summary>
         /// The name of the converter to which this controller is bound. This
@@ -36,22 +27,18 @@ namespace IndicatorLights
         public string converterName = null;
 
         /// <summary>
-        /// The red component of the "lit" color.
+        /// The color to use when the converter is active.
         /// </summary>
         [KSPField]
-        public float red = DEFAULT_ACTIVE_COLOR.r;
+        [ColorSourceIDField]
+        public string activeColor = Colors.ToString(DefaultColor.ToggleLED);
 
         /// <summary>
-        /// The green component of the "lit" color.
+        /// The color to use when the converter is inactive.
         /// </summary>
         [KSPField]
-        public float green = DEFAULT_ACTIVE_COLOR.g;
-
-        /// <summary>
-        /// The blue component of the "lit" color.
-        /// </summary>
-        [KSPField]
-        public float blue = DEFAULT_ACTIVE_COLOR.b;
+        [ColorSourceIDField]
+        public string inactiveColor = Colors.ToString(DefaultColor.Off);
 
         /// <summary>
         /// Called when the module is starting up.
@@ -61,37 +48,16 @@ namespace IndicatorLights
         {
             base.OnStart(state);
 
-            activeColor = new Color(red, green, blue, 1);
+            activeSource = FindColorSource(activeColor);
+            inactiveSource = FindColorSource(inactiveColor);
 
             converter = FindConverter();
             if (converter == null)
             {
                 // bad config!
                 Logging.Warn("Can't find converter named '" + converterName + "' on " + part.GetTitle());
-                Color = INACTIVE_COLOR;
                 return;
             }
-            converterActiveMonitor = new ChangeMonitor<bool>(IsConverterActivated);
-            SetState();
-        }
-
-        /// <summary>
-        /// Called on every frame. Note that this implements Unity's Update method, rather
-        /// than overriding the OnUpdate method of PartModule, because this needs to get
-        /// called regardless of whether the part is active or not.
-        /// </summary>
-        void Update()
-        {
-            if (DidConverterActivationChange) SetState();
-        }
-
-        /// <summary>
-        /// Here when the converter we're tracking changes its "activated" value.
-        /// </summary>
-        /// <param name="value"></param>
-        private void OnConverterActivationChanged(object value)
-        {
-            SetState();
         }
 
         /// <summary>
@@ -109,23 +75,27 @@ namespace IndicatorLights
             return null; // not found!
         }
 
-        private bool DidConverterActivationChange
-        {
-            get { return (converterActiveMonitor != null) && converterActiveMonitor.Update(IsConverterActivated); }
-        }
-
-        private bool IsConverterActivated
+        /// <summary>
+        /// IToggle implementation.
+        /// </summary>
+        public bool ToggleStatus
         {
             get { return (converter != null) && converter.IsActivated; }
         }
 
-        private void SetState()
+        public override bool HasColor
         {
-            if (converter == null)
-            {
-                return;
-            }
-            Color = converter.IsActivated ? activeColor : INACTIVE_COLOR;
+            get { return (converter != null) && CurrentSource.HasColor; }
+        }
+
+        public override Color OutputColor
+        {
+            get { return CurrentSource.OutputColor; }
+        }
+
+        private IColorSource CurrentSource
+        {
+            get { return ToggleStatus ? activeSource : inactiveSource; }
         }
     }
 }

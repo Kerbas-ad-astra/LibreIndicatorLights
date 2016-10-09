@@ -1,14 +1,18 @@
-# IndicatorLights
-KSP mod that adds LED-like "indicator lights" for various uses.
+## What it does
 
-Currently in a pre-release state, use at your own risk. Mostly what this means is
-that I reserve the right to make breaking changes if necessary. (I try not to,
-it's just that I'm not making any promises).
+Adds various helpful LED "indicators" to enhance your ships.  Broadly speaking, these fall into two categories:
 
-Current functionality included with this mod:
+ * **Standalone parts:**  radially attachable LED lights with customizable colors, which can be toggled on/off with action groups.
+ * **Enhancements to existing parts:**  add LEDs to stock parts to provide a visible, automatic indication of part status (such as whether a fuel cell is on or off).
+ 
+ For details (either as a player or as a modder), please see the **[IndicatorLights wiki](https://github.com/KSPSnark/IndicatorLights/wiki)**.
 
-* An "indicator lamp" that toggles on/off with action groups and has customizable on/off colors in the editor
-* On/off indicator lights on fuel cells
+ 
+## How to install
 
-Lots more planned, that's just what's there so far!
+Unzip the contents of "GameData" to your GameData folder, same as with most mods. (Note, includes ModuleManager.)
 
+
+## It's not done yet!
+
+I'm still working on adding features and content. Please see the wiki to stay up to date!

@@ -31,30 +31,63 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\..\..\Managed\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Managed\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="KSPUtil">
-      <HintPath>..\..\Managed\KSPUtil.dll</HintPath>
+      <HintPath>..\..\..\Managed\KSPUtil.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="UnityEngine">
-      <HintPath>..\..\Managed\UnityEngine.dll</HintPath>
+      <HintPath>..\..\..\Managed\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnimateGradient.cs" />
-    <Compile Include="ColorGradient.cs" />
+    <Compile Include="Animations.cs" />
+    <Compile Include="ColorSourceIDField.cs" />
+    <Compile Include="ColorSources.cs" />
+    <Compile Include="DefaultColor.cs" />
+    <Compile Include="IColorSource.cs" />
+    <Compile Include="Identifiers.cs" />
+    <Compile Include="IToggle.cs" />
+    <Compile Include="ModuleBiomeScannerIndicator.cs" />
+    <Compile Include="ModuleCrewIndicator.cs" />
+    <Compile Include="ModuleCrewIndicatorToggle.cs" />
+    <Compile Include="ModuleCustomBlink.cs" />
+    <Compile Include="ModuleCustomColoredEmissive.cs" />
+    <Compile Include="ModuleDockingCrossfeedIndicator.cs" />
+    <Compile Include="ModuleDockingStateIndicator.cs" />
+    <Compile Include="ModuleIndicatorToggle.cs" />
+    <Compile Include="ModuleIndirectToggleIndicator.cs" />
+    <Compile Include="ModuleOrbitalSurveyorIndicator.cs" />
+    <Compile Include="ModuleResourceEnabledIndicator.cs" />
+    <Compile Include="ModuleResourceIndicator.cs" />
+    <Compile Include="ModuleResourceScannerIndicator.cs" />
+    <Compile Include="ModuleScienceAvailabilityIndicator.cs" />
+    <Compile Include="ModuleScienceDataIndicator.cs" />
+    <Compile Include="ModuleSourceIndicator.cs" />
+    <Compile Include="Colors.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="ModuleControllableEmissive.cs" />
     <Compile Include="ModuleConverterIndicator.cs" />
     <Compile Include="ModuleEmissiveController.cs" />
-    <Compile Include="ModuleResourceIndicator.cs" />
+    <Compile Include="ModuleReactionWheelIndicator.cs" />
+    <Compile Include="ModuleResourceLevelIndicator.cs" />
     <Compile Include="ModuleToggleLED.cs" />
+    <Compile Include="ParsedParameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScienceValue.cs" />
     <Compile Include="SplashScreen.cs" />
-    <Compile Include="ChangeMonitor.cs" />
+    <Compile Include="VesselRegistrar.cs" />
+    <Compile Include="Vessels.cs" />
+    <Compile Include="VesselScienceContents.cs" />
+    <Compile Include="VesselScienceTracker.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
